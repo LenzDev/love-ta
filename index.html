@@ -25,10 +25,12 @@
         .text {
             position: absolute;
             color: #ff66b2;
-            font-size: 14px;
+            font-size: 12px;
             font-family: Arial, sans-serif;
             font-weight: bold;
             text-shadow: 0 0 8px #ff66b2;
+            transform-origin: center;
+            white-space: nowrap;
         }
         @keyframes rotate {
             from { transform: rotateY(0deg); }
@@ -48,9 +50,9 @@
         }
 
         function createHeartText() {
-            for (let i = 0; i < Math.PI * 2; i += 0.1) {
-                for (let z = -50; z <= 50; z += 10) {  // Creating depth
-                    let pos = heartFunction(i);
+            for (let t = 0; t < Math.PI * 2; t += 0.2) { // Lebih sedikit titik untuk keteraturan
+                let pos = heartFunction(t);
+                for (let z = -40; z <= 40; z += 20) {  // Mengatur kedalaman lebih seragam
                     let text = document.createElement("div");
                     text.className = "text";
                     text.innerText = "I Love You";
