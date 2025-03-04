@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Love Animation</title>
+    <title>I Love Rista - 3D Animation</title>
     <style>
         body { margin: 0; overflow: hidden; background: black; }
         canvas { display: block; }
@@ -13,24 +13,24 @@
 </head>
 <body>
     <script>
-        // Inisialisasi Scene, Kamera, dan Renderer
+        // Setup Scene, Camera, and Renderer
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
         // Tambahkan Pencahayaan
-        const light = new THREE.PointLight(0xffffff, 1.5);
+        const light = new THREE.PointLight(0xffffff, 2);
         light.position.set(5, 5, 5);
         scene.add(light);
 
-        // Tambahkan Teks 3D
+        // Load Font untuk Teks 3D
         const loader = new THREE.FontLoader();
         loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
             const textGeometry = new THREE.TextGeometry("I Love Rista", {
                 font: font,
-                size: 1,
+                size: 0.7,
                 height: 0.2,
                 curveSegments: 12,
                 bevelEnabled: true,
@@ -43,37 +43,33 @@
             const textMesh = new THREE.Mesh(textGeometry, textMaterial);
             scene.add(textMesh);
 
-            // Bentuk Jalur Hati 3D
-            const heartShape = new THREE.Shape();
-            heartShape.moveTo(0, 1);
-            heartShape.bezierCurveTo(2, 3, 4, 3, 6, 1);
-            heartShape.bezierCurveTo(6, -2, 2, -4, 0, -6);
-            heartShape.bezierCurveTo(-2, -4, -6, -2, -6, 1);
-            heartShape.bezierCurveTo(-4, 3, -2, 3, 0, 1);
+            // Animasi Pergerakan Hati
+            function heartPath(t) {
+                const x = 2 * Math.sin(t) * Math.sin(t) * Math.sin(t);
+                const y = 2 * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t)) / 16;
+                return new THREE.Vector3(x, y, 0);
+            }
 
-            const path = new THREE.CurvePath();
-            path.add(new THREE.CatmullRomCurve3(heartShape.getPoints(100).map(p => new THREE.Vector3(p.x / 3, p.y / 3, 0))));
-
-            let index = 0;
+            let t = 0;
             function animateText() {
-                if (index >= path.curves[0].points.length) index = 0;
-                textMesh.position.copy(path.curves[0].points[index]);
-                index++;
+                t += 0.02;
+                if (t > Math.PI * 2) t = 0;
+                textMesh.position.copy(heartPath(t));
                 requestAnimationFrame(animateText);
             }
             animateText();
         });
 
-        // Kamera & Animasi Rotasi
+        // Kamera dan Rotasi
         camera.position.z = 5;
         function animate() {
             requestAnimationFrame(animate);
-            scene.rotation.y += 0.005;
+            scene.rotation.y += 0.005;  // Rotasi lambat
             renderer.render(scene, camera);
         }
         animate();
 
-        // Responsif Saat Resize
+        // Responsif untuk HP
         window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
