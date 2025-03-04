@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teks Love Berputar</title>
+    <style>
+        body {
+            background-color: black;
+            color: pink;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .text {
+            position: absolute;
+            font-size: 14px;
+            font-weight: bold;
+            text-shadow: 0 0 5px white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="heartContainer"></div>
+
+    <script>
+        const container = document.getElementById("heartContainer");
+        const text = "I Love You";
+        const numPoints = 100;
+        const size = 150;
+
+        for (let i = 0; i < numPoints; i++) {
+            let angle = (i / numPoints) * 2 * Math.PI;
+            let x = size * (16 * Math.pow(Math.sin(angle), 3));
+            let y = -size * (13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle));
+
+            let span = document.createElement("span");
+            span.classList.add("text");
+            span.innerText = text;
+            span.style.left = `${150 + x}px`;
+            span.style.top = `${150 + y}px`;
+
+            container.appendChild(span);
+        }
+
+        let angle = 0;
+        function animate() {
+            angle += 0.01;
+            container.style.transform = `rotate(${angle}rad)`;
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+
+</body>
+</html>
