@@ -3,78 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I Love Rista - 3D Animation</title>
+    <title>3D Heart Text Animation</title>
     <style>
-        body { margin: 0; overflow: hidden; background: black; }
-        canvas { display: block; }
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            perspective: 1000px;
+        }
+        .scene {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            transform-style: preserve-3d;
+            animation: rotate 10s infinite linear;
+        }
+        .text {
+            position: absolute;
+            color: #ff66b2;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            text-shadow: 0 0 8px #ff66b2;
+        }
+        @keyframes rotate {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
+    <div class="scene" id="heartContainer"></div>
     <script>
-        // Setup Scene, Camera, and Renderer
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+        const container = document.getElementById("heartContainer");
 
-        // Tambahkan Pencahayaan
-        const light = new THREE.PointLight(0xffffff, 2);
-        light.position.set(5, 5, 5);
-        scene.add(light);
-
-        // Load Font untuk Teks 3D
-        const loader = new THREE.FontLoader();
-        loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
-            const textGeometry = new THREE.TextGeometry("I Love Rista", {
-                font: font,
-                size: 0.7,
-                height: 0.2,
-                curveSegments: 12,
-                bevelEnabled: true,
-                bevelThickness: 0.05,
-                bevelSize: 0.05,
-                bevelSegments: 5
-            });
-
-            const textMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-            const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-            scene.add(textMesh);
-
-            // Animasi Pergerakan Hati
-            function heartPath(t) {
-                const x = 2 * Math.sin(t) * Math.sin(t) * Math.sin(t);
-                const y = 2 * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t)) / 16;
-                return new THREE.Vector3(x, y, 0);
-            }
-
-            let t = 0;
-            function animateText() {
-                t += 0.02;
-                if (t > Math.PI * 2) t = 0;
-                textMesh.position.copy(heartPath(t));
-                requestAnimationFrame(animateText);
-            }
-            animateText();
-        });
-
-        // Kamera dan Rotasi
-        camera.position.z = 5;
-        function animate() {
-            requestAnimationFrame(animate);
-            scene.rotation.y += 0.005;  // Rotasi lambat
-            renderer.render(scene, camera);
+        function heartFunction(t) {
+            let x = 16 * Math.pow(Math.sin(t), 3);
+            let y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+            return { x: x * 10, y: -y * 10 };
         }
-        animate();
 
-        // Responsif untuk HP
-        window.addEventListener('resize', () => {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-        });
+        function createHeartText() {
+            for (let i = 0; i < Math.PI * 2; i += 0.1) {
+                for (let z = -50; z <= 50; z += 10) {  // Creating depth
+                    let pos = heartFunction(i);
+                    let text = document.createElement("div");
+                    text.className = "text";
+                    text.innerText = "I Love Rista";
+                    text.style.transform = `translate3d(${pos.x}px, ${pos.y}px, ${z}px)`;
+                    container.appendChild(text);
+                }
+            }
+        }
+
+        createHeartText();
     </script>
 </body>
 </html>
