@@ -1,8 +1,8 @@
 .gallery {
-  --d: 10s;
-  /* duration */
-  display: grid;
-  place-items: center; /* Center both horizontally and vertically */
+  --d: 10s; /* duration */
+  display: flex;
+  flex-direction: column; /* Susun elemen secara vertikal */
+  align-items: center; /* Pusatkan elemen */
   width: 220px;
   margin-left: 220px;
 }
@@ -98,7 +98,6 @@ body {
   -webkit-animation-duration: 3s; /* Adjust the duration as needed */
   -webkit-animation-iteration-count: infinite;
   text-shadow: 0 0px 0px rgba(233, 85, 189, 0.419);
-
 }
 
 @-webkit-keyframes shine {
@@ -116,40 +115,42 @@ body {
   }
 }
 
-@media only screen and (max-width: 600px) {
-  #shine {
-  font-size: 22px;
-}
-#hedlinecontainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  margin-bottom: 60px;
-}
-
-.gallery {
-  --d: 10s;
-  /* duration */
-  display: grid;
-  place-items: center; /* Center both horizontally and vertically */
-  width: 150px;
-  margin-left: 60px;
-  #toggle-audio {
-  position: fixed;
-  bottom: 30px; /* Jarak dari bawah (bisa ubah angka untuk lebih ke bawah) */
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 12px 24px;
+/* Tombol Play/Pause */
+#toggle-audio {
+  display: block;
+  margin: 30px auto 0; /* Geser tombol lebih ke bawah */
+  padding: 12px 25px;
   font-size: 18px;
   background-color: #ff4d79;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
+  text-align: center;
 }
 
 #toggle-audio:hover {
   background-color: #e6004c;
 }
+
+@media only screen and (max-width: 600px) {
+  #shine {
+    font-size: 22px;
+  }
+
+  #hedlinecontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 60px;
+  }
+
+  .gallery {
+    --d: 10s; /* duration */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    margin-left: 60px;
+  }
 }
