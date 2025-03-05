@@ -142,7 +142,7 @@ body {
   margin-left: 60px;
   #toggle-audio {
   display: block;       /* Agar tombol tidak sejajar dengan elemen lain */
-  margin: 50px auto 0;  /* Jarak dari atas 50px, tengah secara horizontal */
+  margin: 150px auto 0;  /* Jarak dari atas 50px, tengah secara horizontal */
   padding: 10px 20px;   /* Ukuran tombol lebih besar */
   font-size: 16px;      /* Ukuran teks tombol */
   background-color: #ff4d79; /* Warna tombol */
