@@ -27,11 +27,6 @@
   --r: 16deg;
 }
 
-.gallery > img:nth-child(2) {
-  animation-delay: calc(-0.2*var(--d));
-  --r: -1deg;
-}
-
 .gallery > img:nth-child(3) {
   animation-delay: calc(-0.4*var(--d));
   --r: -19deg;
@@ -140,19 +135,5 @@ body {
   place-items: center; /* Center both horizontally and vertically */
   width: 150px;
   margin-left: 60px;
-  #toggle-audio {
-  display: block;       /* Agar tombol tidak sejajar dengan elemen lain */
-  margin: 1000px auto 0;  /* Jarak dari atas 50px, tengah secara horizontal */
-  padding: 10px 20px;   /* Ukuran tombol lebih besar */
-  font-size: 16px;      /* Ukuran teks tombol */
-  background-color: #ff4d79; /* Warna tombol */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#toggle-audio:hover {
-  background-color: #e6004c; /* Warna saat tombol di-hover */
 }
 }
