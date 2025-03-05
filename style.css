@@ -135,5 +135,21 @@ body {
   place-items: center; /* Center both horizontally and vertically */
   width: 150px;
   margin-left: 60px;
+  #toggle-audio {
+  position: fixed;
+  bottom: 30px; /* Jarak dari bawah (bisa ubah angka untuk lebih ke bawah) */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  font-size: 18px;
+  background-color: #ff4d79;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#toggle-audio:hover {
+  background-color: #e6004c;
 }
 }
