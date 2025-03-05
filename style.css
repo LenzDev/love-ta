@@ -136,42 +136,4 @@ body {
   width: 150px;
   margin-left: 60px;
 }
- /* Tombol Play/Pause */
-#toggle-audio {
-  display: block;
-  margin: 30px auto 0; /* Geser tombol lebih ke bawah */
-  padding: 12px 25px;
-  font-size: 18px;
-  background-color: #ff4d79;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-}
-
-#toggle-audio:hover {
-  background-color: #e6004c;
-}
-
-@media only screen and (max-width: 600px) {
-  #shine {
-    font-size: 22px;
-  }
-
-  #hedlinecontainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 60px;
-  }
-
-  .gallery {
-    --d: 10s; /* duration */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 150px;
-    margin-left: 60px;
-  }
 }
